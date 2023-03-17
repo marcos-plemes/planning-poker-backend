@@ -18,6 +18,6 @@ io.on('connection', socket => {
     console.log(socket.id)
 })
 
-server.listen(3000)
+server.listen(process.env.PORT || 3000)
 
 
