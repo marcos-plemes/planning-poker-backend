@@ -11,7 +11,7 @@ const io = require('socket.io')(server, {
 
 
 app.get('/', (req, res) => {
-    res.send('hola mundo')
+    res.send('Ola, Yanka')
 })
 
 io.on('connection', socket => {
