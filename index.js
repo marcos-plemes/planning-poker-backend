@@ -16,6 +16,9 @@ app.get('/', (req, res) => {
 
 io.on('connection', socket => {
     console.log(socket.id)
+
+    socket.emit("teste", "Teste enviado pelo servidor!");
+
 })
 
 server.listen(process.env.PORT || 3000)
