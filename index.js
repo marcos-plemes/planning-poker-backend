@@ -37,7 +37,7 @@ io.on('connection', socket => {
                 jogadoresConectados[jogadorIndex].isCartaSelecionada = false;
             }
             
-            jogador = jogadoresConectados[jogadorIndex];
+            jogador = JSON.parse(JSON.stringify(jogadoresConectados[jogadorIndex]));
             jogador.tituloDaCarta = tituloDaCarta;
 
             jogadoresComCartas = jogadoresComCartas.filter(jogador => jogador.id !== socket.id);
