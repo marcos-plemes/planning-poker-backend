@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 
 io.on('connection', socket => {
     console.log(`Usuário conectado: ${socket.id}`);
-    socket.emit("jogadoresConectados", jogadoresConectados);
+    socket.emit("jogadoresConectados", jogadoresComCartas ? jogadoresComCartas : jogadoresConectados);
 
     socket.on('nomeDoJogador', nome => {
         const jogador = {id: socket.id, nome: nome};
