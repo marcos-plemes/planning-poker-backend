@@ -21,7 +21,17 @@ app.get('/', (req, res) => {
 
 io.on('connection', socket => {
     console.log(`Usuário conectado: ${socket.id}`);
-    socket.emit("jogadoresConectados", jogoIniciado ? jogadoresConectados : jogadoresComCartas);
+    if(jogoIniciado) {
+        socket.emit("jogadoresConectados", jogadoresConectados);    
+    } else {
+        let jogadores = []
+        for(let i = 0; i<jogadoresConectados.length; i++) {
+            const jogadorComCarta = jogadoresComCartas.find(jogador => jogador.id === jogadoresConectados[i]);
+            jogadores.push(jogadorComCarta ? jogadorComCarta : jogadoresConectados[i])
+        }
+        socket.emit("jogadoresConectados", jogadores);    
+    }
+    
 
     socket.on('nomeDoJogador', nome => {
         const jogador = {id: socket.id, nome: nome};
