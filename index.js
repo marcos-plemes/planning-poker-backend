@@ -31,6 +31,7 @@ io.on('connection', socket => {
         }
         socket.emit("jogadoresConectados", jogadores);    
     }
+    socket.emit('jogoIniciado', jogoIniciado);
     
 
     socket.on('nomeDoJogador', nome => {
