@@ -12,6 +12,8 @@ let jogadoresConectados = [];
 
 let jogadoresComCartas = [];
 
+let jogoIniciado = true;
+
 
 app.get('/', (req, res) => {
     res.send('Ola, Mundo')
@@ -19,7 +21,7 @@ app.get('/', (req, res) => {
 
 io.on('connection', socket => {
     console.log(`Usuário conectado: ${socket.id}`);
-    socket.emit("jogadoresConectados", jogadoresComCartas ? jogadoresComCartas : jogadoresConectados);
+    socket.emit("jogadoresConectados", jogoIniciado ? jogadoresConectados : jogadoresComCartas);
 
     socket.on('nomeDoJogador', nome => {
         const jogador = {id: socket.id, nome: nome};
@@ -50,9 +52,11 @@ io.on('connection', socket => {
 
     socket.on('revelar-cartas', () => {
         io.emit('cartas-escolhidas', jogadoresComCartas)
+        jogoIniciado = false;
     })
 
     socket.on('reiniciar-jogo', () => {
+        jogoIniciado = true;
         jogadoresComCartas = [];
         io.emit('reiniciar-jogo', {})
     })
