@@ -26,7 +26,7 @@ io.on('connection', socket => {
     } else {
         let jogadores = []
         for(let i = 0; i<jogadoresConectados.length; i++) {
-            const jogadorComCarta = jogadoresComCartas.find(jogador => jogador.id === jogadoresConectados[i]);
+            const jogadorComCarta = jogadoresComCartas.find(jogador => jogador.id === jogadoresConectados[i].id);
             jogadores.push(jogadorComCarta ? jogadorComCarta : jogadoresConectados[i])
         }
         socket.emit("jogadoresConectados", jogadores);    
