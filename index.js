@@ -53,6 +53,7 @@ io.on('connection', socket => {
     })
 
     socket.on('reiniciar-jogo', () => {
+        jogadoresComCartas = [];
         io.emit('reiniciar-jogo', {})
     })
 
