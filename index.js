@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const axios = require('axios'); // Importando o axios
 const server = require('http').createServer(app);
@@ -8,6 +9,8 @@ const io = require('socket.io')(server, {
         credentials: true
     }
 });
+
+app.use(cors())
 
 let jogadoresConectados = [];
 
@@ -23,7 +26,7 @@ app.get('/tarefas-para-validacao', async (req, res) => {
                 'X-Redmine-API-Key': '719a61cec449c975be0d452ff44ca9645e070822'
             }
         })
-        res.json(response.data); // Retorne os dados da resposta
+        res.json(response.data.issues);
     } catch(error) {
         res.status(500).send("erro")
     }
