@@ -16,7 +16,7 @@ let jogadoresComCartas = [];
 let jogoIniciado = true;
 
 
-app.get('/', async (req, res) => {
+app.get('/tarefas-para-validacao', async (req, res) => {
     try {
         const response = await axios.get('https://redmine.cloudmega.com.br/issues.json?cf_4=Recursos%20Humanos&status_id=54', {
             headers: {
