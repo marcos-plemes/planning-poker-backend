@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const axios = require('axios'); // Importando o axios
 const server = require('http').createServer(app);
 const io = require('socket.io')(server, {
     cors: {
@@ -15,8 +16,17 @@ let jogadoresComCartas = [];
 let jogoIniciado = true;
 
 
-app.get('/', (req, res) => {
-    res.send('Ola, Mundo')
+app.get('/', async (req, res) => {
+    try {
+        const response = await axios.get('https://redmine.cloudmega.com.br/issues.json?cf_4=Recursos%20Humanos&status_id=54', {
+            headers: {
+                'X-Redmine-API-Key': '719a61cec449c975be0d452ff44ca9645e070822'
+            }
+        })
+        res.json(response.data); // Retorne os dados da resposta
+    } catch(error) {
+        res.status(500).send("erro")
+    }
 })
 
 io.on('connection', socket => {
