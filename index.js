@@ -19,14 +19,16 @@ let jogadoresComCartas = [];
 let jogoIniciado = true;
 
 
-app.get('/tarefas-para-validacao', async (req, res) => {
+app.get('/buscar-nome-do-usuario', async (req, res) => {
+    const authHeader = req.headers.authorization;    
+
     try {
-        const response = await axios.get('https://redmine.cloudmega.com.br/issues.json?cf_4=Recursos%20Humanos&status_id=54', {
+        const response = await axios.get('https://redmine.cloudmega.com.br/users/current.json', {
             headers: {
-                'X-Redmine-API-Key': '719a61cec449c975be0d452ff44ca9645e070822'
+                Authorization: authHeader
             }
         })
-        res.json(response.data.issues);
+        res.json(response.data.user.firstname);
     } catch(error) {
         res.status(500).send("erro")
     }
